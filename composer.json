@@ -1,0 +1,30 @@
+{
+    "name": "guhemama/http-precondition-bundle",
+    "description": "Introduces route preconditions when using the Symfony HttpKernel component.",
+    "type": "library",
+    "keywords": ["http", "precondition", "symfony"],
+    "require": {
+        "php": "^8.1",
+        "symfony/http-kernel": "^5.4|^6.2",
+        "symfony/expression-language": "^5.4|^6.2",
+        "symfony/dependency-injection": "^5.4|^6.2",
+        "symfony/config": "^5.4|^6.2"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Guhemama\\HttpPreconditionBundle\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Gustavo Henrique Mascarenhas Machado",
+            "email": "guh@guh.me"
+        }
+    ],
+    "require-dev": {
+        "phpstan/phpstan": "^1.9",
+        "phpunit/phpunit": "^9",
+        "squizlabs/php_codesniffer": "*"
+    }
+}

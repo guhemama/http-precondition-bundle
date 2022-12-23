@@ -1,0 +1,10 @@
+services:
+  guhemama.http_precondition.expression_language:
+    class: Symfony\Component\ExpressionLanguage\ExpressionLanguage
+
+  guhemama.http_precondition.precondition_listener:
+    class: Guhemama\HttpPreconditionBundle\EventListener\Request\PreconditionListener
+    arguments:
+      - '@guhemama.http_precondition.expression_language'
+    tags:
+      - { name: kernel.event_listener, event: kernel.controller_arguments }
