@@ -13,11 +13,11 @@ jobs:
       - name: Composer dependencies
         run: composer install --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
 
-      - name: Run phpstan
-        run: ./vendor/bin/phpstan
+      - name: Run PHPStan
+        run: composer run-script phpstan
 
-      - name: Run phpunit
-        run: ./vendor/bin/phpunit
+      - name: Run PHPUnit
+        run: composer run-script tests
 
       - name: Run phpcs
-        run: ./vendor/bin/phpcs
+        run: composer run-script cs-check
