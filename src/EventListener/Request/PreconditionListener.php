@@ -6,26 +6,26 @@ namespace Guhemama\HttpPreconditionBundle\EventListener\Request;
 
 use Guhemama\HttpPreconditionBundle\Annotations\Precondition;
 use Guhemama\HttpPreconditionBundle\Exception\Http\PreconditionFailedHttpException;
-use ReflectionMethod;
 use ReflectionException;
+use ReflectionMethod;
 use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
 use Symfony\Component\HttpKernel\Event\ControllerArgumentsEvent;
 
+use function assert;
 use function count;
 use function is_array;
 use function is_callable;
 use function is_object;
+use function method_exists;
 
 final class PreconditionListener
 {
     public function __construct(
-        private readonly ExpressionLanguage $expressionLanguage
+        private readonly ExpressionLanguage $expressionLanguage,
     ) {
     }
 
-    /**
-     * @throws ReflectionException
-     */
+    /** @throws ReflectionException */
     public function __invoke(ControllerArgumentsEvent $event): void
     {
         /** @var string|string[]|object $controller */
@@ -53,11 +53,11 @@ final class PreconditionListener
         }
 
         foreach ($attributes as $attribute) {
-            /** @var Precondition $precondition */
             $precondition = $attribute->newInstance();
+            assert($precondition instanceof Precondition);
             $result = $this->expressionLanguage->evaluate($precondition->expr, $values);
 
-            if (false === $result) {
+            if ($result === false) {
                 throw new PreconditionFailedHttpException($precondition);
             }
         }

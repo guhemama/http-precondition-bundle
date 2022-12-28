@@ -16,15 +16,37 @@
             "Guhemama\\HttpPreconditionBundle\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Guhemama\\HttpPreconditionBundle\\Tests\\": "tests/"
+        }
+    },
     "authors": [
         {
             "name": "Gustavo Henrique Mascarenhas Machado",
             "email": "guh@guh.me"
         }
     ],
+    "scripts": {
+        "tests": "phpunit",
+        "phpstan": "phpstan analyse",
+        "cs-fix": "phpcbf",
+        "cs-check": "phpcs",
+        "code-review": [
+            "@cs-fix",
+            "@phpstan",
+            "@tests"
+        ]
+    },
     "require-dev": {
         "phpstan/phpstan": "^1.9",
         "phpunit/phpunit": "^9",
-        "squizlabs/php_codesniffer": "*"
+        "squizlabs/php_codesniffer": "*",
+        "doctrine/coding-standard": "^11.0"
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
     }
 }

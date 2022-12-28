@@ -10,16 +10,14 @@ use Throwable;
 
 class PreconditionFailedHttpException extends BasePreconditionFailedHttpException
 {
-    /**
-     * @param array<string, mixed> $headers
-     */
+    /** @param array<string, mixed> $headers */
     public function __construct(
         public readonly Precondition $precondition,
-        ?Throwable $previous = null,
+        Throwable|null $previous = null,
         int $code = 0,
-        array $headers = []
+        array $headers = [],
     ) {
-        $message = !empty($precondition->message) ? $precondition->message : 'A route precondition failed.';
+        $message = ! empty($precondition->message) ? $precondition->message : 'A route precondition failed.';
 
         parent::__construct($message, $previous, $code, $headers);
     }
