@@ -81,7 +81,7 @@ a another instance of it instead of the default one, update the configuration as
 `my_custom_expression_lang_service` with your service name:
 
 ```yaml
-# config/packages/http_precondition.yaml
-http_precondition:
+# config/packages/guhemama_http_precondition.yaml
+guhemama_http_precondition:
   expression_language: my_custom_expression_lang_service
 ```

@@ -10,7 +10,7 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
-class HttpPreconditionExtension extends Extension
+class GuhemamaHttpPreconditionExtension extends Extension
 {
     /** @param array<mixed> $configs */
     public function load(array $configs, ContainerBuilder $container): void

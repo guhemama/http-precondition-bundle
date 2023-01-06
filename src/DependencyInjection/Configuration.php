@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Guhemama\HttpPreconditionBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
@@ -9,7 +11,7 @@ class Configuration implements ConfigurationInterface
 {
     public function getConfigTreeBuilder(): TreeBuilder
     {
-        $treeBuilder = new TreeBuilder('http_precondition');
+        $treeBuilder = new TreeBuilder('guhemama_http_precondition');
         $treeBuilder->getRootNode()
             ->children()
                 ->scalarNode('expression_language')
