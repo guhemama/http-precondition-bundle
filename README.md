@@ -77,11 +77,11 @@ Configuration
 
 This bundle depends on the [ExpressionLanguage component](https://github.com/symfony/expression-language).
 If you have extended the expression language or would like to use
-a another instance of it instead of the default one, you can decorate 
-the service we inject in the precondition listener:
+a another instance of it instead of the default one, update the configuration as follows, replacing
+`my_custom_expression_lang_service` with your service name:
 
 ```yaml
-services:
-  App\ExpressionLanguage\MyCustomLanguage:
-    decorates: guhemama.http_precondition.expression_language
+# config/packages/guhemama_http_precondition.yaml
+guhemama_http_precondition:
+  expression_language: my_custom_expression_lang_service
 ```
