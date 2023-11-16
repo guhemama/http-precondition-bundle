@@ -24,6 +24,8 @@ class PreconditionListenerTest extends TestCase
 
     public function testNoPreconditionThrowsNoException(): void
     {
+        self::expectNotToPerformAssertions();
+
         $event = $this->createControllerArgumentsEvent(new class {
             public function __invoke(): bool
             {
@@ -32,11 +34,12 @@ class PreconditionListenerTest extends TestCase
         });
 
         $this->listener->__invoke($event);
-        self::assertTrue(true);
     }
 
     public function testSinglePreconditionThrowsNoException(): void
     {
+        self::expectNotToPerformAssertions();
+
         $event = $this->createControllerArgumentsEvent(new class {
             #[Precondition('1 + 1 == 2')]
             public function __invoke(): bool
@@ -46,7 +49,6 @@ class PreconditionListenerTest extends TestCase
         });
 
         $this->listener->__invoke($event);
-        self::assertTrue(true);
     }
 
     public function testSinglePreconditionThrowsException(): void
@@ -83,6 +85,8 @@ class PreconditionListenerTest extends TestCase
 
     public function testMultiplePreconditionThrowsNoException(): void
     {
+        self::expectNotToPerformAssertions();
+
         $event = $this->createControllerArgumentsEvent(new class {
             #[Precondition('1 + 1 == 2', 'Checksum is invalid.')]
             #[Precondition("'apples' == 'apples'", 'Cannot compare apples to oranges.')]
@@ -93,7 +97,6 @@ class PreconditionListenerTest extends TestCase
         });
 
         $this->listener->__invoke($event);
-        self::assertTrue(true);
     }
 
     public function testMultiplePreconditionThrowsExceptionWhenSinglePreconditionFails(): void

@@ -16,7 +16,7 @@ use function count;
 use function is_array;
 use function is_callable;
 use function is_object;
-use function method_exists;
+use function is_string;
 
 final class PreconditionListener
 {
@@ -28,13 +28,15 @@ final class PreconditionListener
     /** @throws ReflectionException */
     public function __invoke(ControllerArgumentsEvent $event): void
     {
-        /** @var string|string[]|object $controller */
-        $controller = $event->getController();
+        $handler = $event->getController();
 
-        if (is_array($controller)) {
-            $reflectedMethod = new ReflectionMethod($controller[0], $controller[1]);
-        } elseif (is_object($controller) && is_callable([$controller, '__invoke'])) {
-            $reflectedMethod = new ReflectionMethod($controller, '__invoke');
+        if (is_array($handler) && count($handler) >= 2) {
+            [$controller, $method] = $handler;
+            assert(is_string($controller));
+            assert(is_string($method));
+            $reflectedMethod = new ReflectionMethod($controller, $method);
+        } elseif (is_object($handler) && is_callable([$handler, '__invoke'])) {
+            $reflectedMethod = new ReflectionMethod($handler, '__invoke');
         } else {
             return;
         }
@@ -44,13 +46,7 @@ final class PreconditionListener
             return;
         }
 
-        // Symfony 6+
-        if (method_exists($event, 'getNamedArguments')) {
-            $values = $event->getNamedArguments();
-        // Symfony >6
-        } else {
-            $values = $event->getRequest()->attributes->all();
-        }
+        $values = $event->getNamedArguments();
 
         foreach ($attributes as $attribute) {
             $precondition = $attribute->newInstance();
